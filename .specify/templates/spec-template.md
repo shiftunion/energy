@@ -100,6 +100,13 @@ When creating this spec from a user prompt:
 - [ ] Scope is clearly bounded
 - [ ] Dependencies and assumptions identified
 
+### Constitutional Alignment
+- [ ] Reliability requirements specified (failure handling, recovery time)
+- [ ] Observability requirements defined (logging, metrics, monitoring)
+- [ ] Security considerations identified (auth, validation, data protection)
+- [ ] Accessibility requirements included for UI features (WCAG 2.1 AA)
+- [ ] Performance criteria defined (response times, throughput targets)
+
 ---
 
 ## Execution Status

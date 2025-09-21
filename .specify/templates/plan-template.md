@@ -47,7 +47,35 @@
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**I. Reliability Compliance**:
+- [ ] Failure scenarios identified and planned for testing
+- [ ] Recovery mechanisms specified (≤30s recovery time)
+- [ ] Circuit breakers/retry logic designed for external dependencies
+- [ ] Graceful degradation strategy defined
+
+**II. Observability Compliance**:
+- [ ] Structured logging planned with correlation IDs
+- [ ] Metrics collection points identified at component boundaries  
+- [ ] Error context and audit trail requirements specified
+- [ ] Monitoring dashboard requirements defined
+
+**III. Security Compliance**:
+- [ ] Input validation and sanitization planned
+- [ ] Authentication/authorization requirements identified
+- [ ] Secret management strategy defined (no secrets in code/logs)
+- [ ] Security review scheduled for sensitive features
+
+**IV. Accessibility Compliance**:
+- [ ] WCAG 2.1 AA compliance planned for UI features
+- [ ] Keyboard navigation and screen reader support designed
+- [ ] Non-color-dependent information conveyance ensured
+- [ ] Accessibility testing included in feature plan
+
+**V. Performance Compliance**:
+- [ ] Performance benchmarks defined (API <200ms p95, UI <100ms feedback)
+- [ ] Database optimization strategy planned
+- [ ] Performance regression testing included
+- [ ] Critical path performance impact assessed
 
 ## Project Structure
 

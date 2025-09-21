@@ -1,50 +1,76 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: N/A → 1.0.0 (initial constitution)
+- Added principles: I. Reliability, II. Observability, III. Security, IV. Accessibility, V. Performance
+- Added sections: Quality Standards, Development Workflow
+- Templates requiring updates:
+  ✅ updated plan-template.md - Constitution Check section
+  ✅ updated spec-template.md - aligned requirement validation
+  ✅ updated tasks-template.md - added principle-based task categories
+- Follow-up TODOs: None - all placeholders resolved
+-->
+
+# Energy Project Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Reliability
+All systems MUST maintain consistent functionality under expected load and failure scenarios. 
+Components MUST handle graceful degradation during partial failures. Circuit breakers and 
+retry mechanisms are mandatory for external dependencies. System state MUST be recoverable 
+from any partial failure within 30 seconds. Every feature MUST include failure scenario testing.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Observability
+All system behaviors MUST be observable through structured logging, metrics, and tracing. 
+Every user-facing action MUST generate audit logs with unique correlation IDs. Performance 
+metrics MUST be captured at component boundaries. Error states MUST include sufficient 
+context for debugging. Monitoring dashboards are required for all production services.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Security
+Security MUST be built-in, not bolted-on. All data inputs MUST be validated and sanitized. 
+Authentication and authorization checks are mandatory for all protected resources. Secrets 
+MUST never appear in logs, code, or configuration files. Security reviews are required 
+for any feature handling sensitive data or external communications.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Accessibility
+All user interfaces MUST comply with WCAG 2.1 AA standards. Features MUST be usable via 
+keyboard navigation and screen readers. Color MUST NOT be the only means of conveying 
+information. All interactive elements MUST have appropriate focus indicators. Accessibility 
+testing is mandatory before any UI feature release.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Performance
+System responses MUST meet defined performance benchmarks. API endpoints MUST respond 
+within 200ms for 95th percentile requests. UI interactions MUST provide feedback within 
+100ms. Database queries MUST be optimized and indexed appropriately. Performance regression 
+testing is required for any change affecting critical paths.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Quality Standards
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+All code MUST pass automated quality gates including linting, security scanning, and 
+performance benchmarking. Technical debt MUST be tracked and addressed in each sprint. 
+Breaking changes require migration guides and backwards compatibility periods. All public 
+APIs MUST maintain semantic versioning. Documentation MUST be updated synchronously with 
+code changes.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Test-Driven Development (TDD) is mandatory: tests MUST be written before implementation. 
+All features MUST follow the specification-driven workflow: /specify → /plan → /tasks → 
+/implement. Code reviews MUST verify constitutional compliance before merge. Continuous 
+integration MUST validate all principles automatically. Emergency hotfixes require 
+post-incident constitutional compliance review within 48 hours.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices and guidelines. All pull requests 
+MUST demonstrate constitutional compliance before merge approval. Constitutional violations 
+MUST be documented and justified in the Complexity Tracking section of feature plans. 
+Amendment proposals require documentation of impact analysis and migration strategy.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Version increments follow semantic versioning: MAJOR for backward-incompatible governance 
+changes, MINOR for new principles or sections, PATCH for clarifications. All team members 
+MUST validate constitutional compliance during code reviews. Agent-specific guidance files 
+(`.github/copilot-instructions.md`, `CLAUDE.md`, etc.) MUST reference current constitution 
+version for development context.
+
+**Version**: 1.0.0 | **Ratified**: 2025-09-21 | **Last Amended**: 2025-09-21

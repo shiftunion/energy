@@ -69,12 +69,19 @@
 - [ ] T017 Request/response logging
 - [ ] T018 CORS and security headers
 
-## Phase 3.5: Polish
-- [ ] T019 [P] Unit tests for validation in tests/unit/test_validation.py
-- [ ] T020 Performance tests (<200ms)
-- [ ] T021 [P] Update docs/api.md
-- [ ] T022 Remove duplication
-- [ ] T023 Run manual-testing.md
+## Phase 3.5: Constitutional Compliance
+- [ ] T019 [P] Reliability tests: failure scenarios and recovery in tests/reliability/
+- [ ] T020 [P] Observability: structured logging and metrics in src/observability/
+- [ ] T021 [P] Security: input validation and auth checks in tests/security/
+- [ ] T022 [P] Accessibility: WCAG 2.1 AA compliance tests in tests/accessibility/
+- [ ] T023 Performance benchmarks and regression tests in tests/performance/
+
+## Phase 3.6: Polish
+- [ ] T024 [P] Unit tests for validation in tests/unit/test_validation.py
+- [ ] T025 Performance optimization (<200ms API, <100ms UI feedback)
+- [ ] T026 [P] Update docs/api.md with constitutional compliance notes
+- [ ] T027 Remove duplication and technical debt
+- [ ] T028 Run manual-testing.md and constitutional review checklist
 
 ## Dependencies
 - Tests (T004-T007) before implementation (T008-T014)
