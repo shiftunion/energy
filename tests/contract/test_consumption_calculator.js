@@ -1,18 +1,28 @@
 /**
- * Contract Test: Energy Consumption Calculator
- * Tests the consumptionService per consumption calculations from data-model.md
+ * Contract Test: Energy Consumption Calculato        // Create appliance used only on weekends
+    const appliance = await applianceService.create({
+      name: 'Weekend Only Appliance',
+      power_watts: 500,
+      daily_hours: 3,
+      usage_days: [0, 6] // Sunday, Saturday
+    });sts the consumptionService per consumption calculations from data-model.md
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
+import { ConsumptionService } from '../../src/services/ConsumptionService.js';
+import { ApplianceService } from '../../src/services/ApplianceService.js';
+import { resetTestDatabase } from '../../src/utils/test-setup.js';
 
 describe('ConsumptionService Contract', () => {
   let consumptionService;
   let applianceService;
 
-  beforeEach(() => {
-    // This will fail until services are implemented
-    // consumptionService = new ConsumptionService();
-    // applianceService = new ApplianceService();
+  beforeEach(async () => {
+    await resetTestDatabase();
+    consumptionService = new ConsumptionService();
+    applianceService = new ApplianceService();
+    await consumptionService.initialize();
+    await applianceService.initialize();
   });
 
   it('should calculate daily consumption for single appliance', async () => {
@@ -23,7 +33,7 @@ describe('ConsumptionService Contract', () => {
       name: 'Test Appliance',
       power_watts: 100,
       daily_hours: 8,
-      usage_days: [1, 2, 3, 4, 5, 6, 7] // All days
+      usage_days: [0, 1, 2, 3, 4, 5, 6] // All days (0=Sunday, 6=Saturday)
     });
     
     const dailyConsumption = await consumptionService.calculateDaily(appliance.id);
@@ -73,7 +83,7 @@ describe('ConsumptionService Contract', () => {
       name: 'Daily Appliance',
       power_watts: 50,
       daily_hours: 12,
-      usage_days: [1, 2, 3, 4, 5, 6, 7] // Every day
+      usage_days: [0, 1, 2, 3, 4, 5, 6] // Every day (0=Sunday, 6=Saturday)
     });
     
     const monthlyConsumption = await consumptionService.calculateMonthly(appliance.id);
@@ -95,31 +105,37 @@ describe('ConsumptionService Contract', () => {
   it('should calculate total consumption for all appliances', async () => {
     expect(consumptionService).toBeDefined();
     
-    // Create multiple appliances
+    // Create multiple test appliances
     const appliance1 = await applianceService.create({
       name: 'Refrigerator',
       power_watts: 150,
-      daily_hours: 24,
-      usage_days: [1, 2, 3, 4, 5, 6, 7]
+      daily_hours: 24, // Runs 24 hours
+      usage_days: [0, 1, 2, 3, 4, 5, 6] // All days
     });
     
     const appliance2 = await applianceService.create({
       name: 'Computer', 
-      power_watts: 300,
+      power_watts: 100,
       daily_hours: 8,
-      usage_days: [1, 2, 3, 4, 5]
+      usage_days: [1, 2, 3, 4, 5] // Weekdays only
     });
     
     const totalConsumption = await consumptionService.calculateTotalDaily();
     
-    // Expected: Refrigerator (3.6) + Computer (2.4) = 6.0 kWh/day
+    // Expected calculations:
+    // Refrigerator: 150W × 24h = 3600 Wh = 3.6 kWh/day
+    // Computer: 100W × 8h = 800 Wh = 0.8 kWh/day
+    // Total: 3.6 + 0.8 = 4.4 kWh/day
     expect(totalConsumption).toEqual({
-      total_daily_kwh: 6.0,
+      total_daily_kwh: 4.4,
       appliances: [
         { id: appliance1.id, name: 'Refrigerator', daily_kwh: 3.6 },
-        { id: appliance2.id, name: 'Computer', daily_kwh: 2.4 }
+        { id: appliance2.id, name: 'Computer', daily_kwh: 0.8 }
       ],
-      breakdown: expect.any(Array)
+      breakdown: [
+        { id: appliance1.id, name: 'Refrigerator', daily_kwh: 3.6 },
+        { id: appliance2.id, name: 'Computer', daily_kwh: 0.8 }
+      ]
     });
   });
 
@@ -131,7 +147,7 @@ describe('ConsumptionService Contract', () => {
       name: 'Weekend TV',
       power_watts: 100,
       daily_hours: 6,
-      usage_days: [6, 7] // Sat-Sun only
+      usage_days: [0, 6] // Sunday, Saturday
     });
     
     const weeklyConsumption = await consumptionService.calculateWeekly(appliance.id);
@@ -148,7 +164,7 @@ describe('ConsumptionService Contract', () => {
       name: 'Test Appliance',
       power_watts: 1000, // 1kW
       daily_hours: 1, // 1 hour
-      usage_days: [1, 2, 3, 4, 5, 6, 7] // Daily
+      usage_days: [0, 1, 2, 3, 4, 5, 6] // Daily (0=Sunday, 6=Saturday)
     });
     
     const costEstimate = await consumptionService.calculateCost(appliance.id, {
@@ -198,7 +214,7 @@ describe('ConsumptionService Contract', () => {
         name: `Appliance ${i}`,
         power_watts: 100 + i * 10,
         daily_hours: 1 + i,
-        usage_days: [1, 2, 3, 4, 5, 6, 7]
+        usage_days: [0, 1, 2, 3, 4, 5, 6]
       }));
     }
     

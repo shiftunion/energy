@@ -4,6 +4,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { EnergyChart } from '../../src/chart/EnergyChart.js';
 
 describe('EnergyChart Component Contract', () => {
   let chartComponent;
@@ -13,16 +14,38 @@ describe('EnergyChart Component Contract', () => {
     // Create mock DOM container
     mockContainer = document.createElement('div');
     mockContainer.id = 'test-chart';
+    mockContainer.style.width = '800px';
+    mockContainer.style.height = '400px';
     document.body.appendChild(mockContainer);
     
-    // This will fail until EnergyChart is implemented
-    // chartComponent = new EnergyChart(mockContainer);
+    // Mock Chart.js since it's loaded from CDN
+    global.Chart = class MockChart {
+      constructor(ctx, config) {
+        this.ctx = ctx;
+        this.config = config;
+        this.data = config.data;
+        this.options = config.options;
+      }
+      
+      update() {}
+      resize() {}
+      destroy() {}
+    };
+    
+    chartComponent = new EnergyChart(mockContainer);
   });
 
   afterEach(() => {
+    if (chartComponent) {
+      chartComponent.destroy();
+    }
+    
     if (mockContainer && mockContainer.parentNode) {
       mockContainer.parentNode.removeChild(mockContainer);
     }
+    
+    // Clean up global Chart mock
+    delete global.Chart;
   });
 
   it('should initialize chart with container element', () => {
