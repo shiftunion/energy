@@ -3,8 +3,6 @@
  * Uses sql.js to provide SQLite functionality via WebAssembly
  */
 
-import initSqlJs from 'sql.js';
-
 class Database {
   constructor() {
     this.db = null;
@@ -19,11 +17,22 @@ class Database {
     if (this.isInitialized) return;
 
     try {
+      console.log('📀 Initializing SQLite database...');
+      
+      // Check if SQL.js is loaded globally
+      if (typeof window.initSqlJs !== 'function') {
+        throw new Error('SQL.js is not loaded. Please ensure SQL.js is included in the page.');
+      }
+      
+      console.log('✅ SQL.js found, initializing WebAssembly...');
+      
       // Initialize sql.js with WebAssembly
-      const SQL = await initSqlJs({
-        // Use WASM file from public directory
-        locateFile: (file) => `/sql.js/${file}`
+      const SQL = await window.initSqlJs({
+        // Use WASM files from CDN
+        locateFile: (file) => `https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/${file}`
       });
+      
+      console.log('✅ SQL.js WebAssembly initialized');
 
       // Try to load existing database from localStorage
       const savedDb = localStorage.getItem('household_power_db');
