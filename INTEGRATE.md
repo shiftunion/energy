@@ -1,25 +1,23 @@
 # Integrate the learning experience with reflection
 
 1. Were you able to get your assistant to behave properly during the transitions?
-Yes, I used the GitHub Spec Kit, and Claude and Copilot acted admirably
+Yes, I used the GitHub spec-kit, and Claude and Co-pilot performed admirably
 
-2. Did your assistant continue to adhere to your directives in other parts of its memory?
+2. Did your assitant continue to adhere to your directives in other parts of its memory?
 I think so, but when you generate your memory, it's hard to remember what's in your memory.
 Largely, I think it did a great job,
 
-3. What was a behavior that your assistant took a lot of work to get right?
-Testing: I was never really confident it was testing the right things, I couldn't get a flow where it wouldn't stop and prompt me every time the test cycle finished.
+3. What was a behaviour that your assistant took a lot of work to get right?
+Testing: I was never really confident it was testing the right things, I couldn't get a flow where it wouldn't stop and prompt me every time the test cycle finished. 
 
-4. Were you able to successfully get your assistant to pick up where you left off (with an empty context window) with just "what's the next step?" or "what is our status?"
-Yes, I was successfully able to kick off where the flow left off. The Spec Kit framework really helped.
-
-
-Notes:
-I was amazed how the model corrected itself and went through a process of trial-and-error explaining along the way.
-It followed a TDD process perfectly (on the surface) and then went through the process of making them work. I spent $12 doing this.
-I could not get the Spec Kit framework to work effectively with the Codex CLI, so I defaulted to GitHub Copilot CLI
+4. Were you able to successfully get your assistant to pick up where you left off (with an empty context window) with just "what's the next step?" or "what is our status?
+Yes, I was successfully able to kick off where the flow left off. The Spec-kit framework made this really simple 
 
 
+## Notes:
+- I was amazed how the model corrected itself and went through a process of trial error explaining along the way. 
+- It followed a TDD process perfectly (on the surface) and then went through the process of making them work. I spent $12 doing this.
+- I could not get the spec kit framework to work effectively with the Codex CLI, so I defaulted to GitHub Copilot CLI, which worked fine other than a few test-input loops, where I needed to press the `q` key repeatedly
 
 
 🏆 ENERGY PROJECT IMPLEMENTATION COMPLETE 🏆
