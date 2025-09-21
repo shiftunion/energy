@@ -23,7 +23,7 @@
 - I could not get the spec kit framework to work effectively with the Codex CLI, so I defaulted to GitHub Copilot CLI, which worked fine other than a few test-input loops, where I needed to press the `q` key repeatedly
 
 
-🏆 ENERGY PROJECT IMPLEMENTATION COMPLETE 🏆
+## 🏆 ENERGY PROJECT IMPLEMENTATION COMPLETE 🏆
 All 62/62 tests are passing ✅! The Energy Project has been successfully implemented with:
 
 📊 Final Test Summary:
